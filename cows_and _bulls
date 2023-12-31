@@ -1,0 +1,432 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+struct node
+{
+        vector<int> vect;
+        struct node *a[14];
+        struct node *right;
+
+
+};
+int displayed,middle,centre;
+struct node *head=NULL,*top=NULL,*start=NULL,*prev=NULL,*current=NULL;
+void traverse1();
+void initialinsert();
+void birth(struct node **parent,struct node **prev);
+void laterinsert(struct node **parent,int displayed);
+void count1(int givennum,int checknum,int cb[]);
+//traversing and root creation
+//main fuunction nyaag traverse call two times
+
+void traverse1()
+{
+    int m=1;
+
+    if(top==NULL)
+    {
+        struct node *temp=new node();
+        head=temp;
+        top=temp;
+        start=temp;
+        initialinsert();
+        birth(&head,&prev);
+
+        temp->right=NULL;
+        top=top->a[0];
+        start=top;
+
+
+
+    }
+    else
+
+
+    {
+        while(start!=NULL)
+    {
+
+
+        top=start;
+        prev=NULL;
+        while(top!=NULL)
+        {
+
+        if(top->vect.size()>1)
+        {
+        birth(&top,&prev);
+        prev=top;
+        }
+        top=top->right;
+
+        }
+
+
+        while(start->vect.size()<=1)
+        {
+
+            start=start->right;
+            if(start==NULL)
+            break;
+        }
+        if(start==NULL)
+        {
+            break;
+        }
+
+
+        start=start->a[0];
+
+    }
+
+     }
+}
+
+
+
+
+
+
+void initialinsert()
+{
+int j=1023,i=1023,a[4],count=0;
+while(j!=9877)
+{
+a[3]=i%10;
+i=i/10;
+a[2]=i%10;
+i=i/10;
+a[1]=i%10;
+i=i/10;
+a[0]=i%10;
+i=i/10;
+for (int k=0;k<=3;k++)
+{
+for(int z=k+1;z<=3;z++)
+{
+if(a[k]==a[z])
+{
+count++;
+break;
+}
+}
+}
+if(count==0)
+{
+head->vect.push_back(j);
+}
+        j++;
+        count=0;
+        i=j;
+    }
+
+}
+
+
+
+void birth(struct node **parent,struct node **prev)
+
+{
+
+    struct node *qw;
+
+for(int i=0;i<=13;i++)
+{
+struct node *temp=new node();
+(*parent)->a[i]=temp;
+for(int j=0;j<=13;j++)
+        {
+        temp->a[j]=NULL;
+        }
+
+    }
+      middle=(((*parent)->vect).size())/2;
+      displayed=(*parent)->vect[middle];
+
+       laterinsert(parent,displayed);
+
+        for(int k=0;k<=12;k++)
+        {
+        (*parent)->a[k]->right=(*parent)->a[k+1];
+
+        }
+       qw= (*parent)->a[13];
+       qw->right=NULL;
+
+        if((*prev)!=NULL)
+        {
+        (*prev)->a[13]->right=(*parent)->a[0];
+        }
+
+
+     // fill the vectors and the proceed
+
+}
+
+
+
+
+//show a fixed number which is in the middle of the vector
+void laterinsert(struct node **parent,int displayed)
+{
+    int cb[2];
+    for(int q=0;q<(*parent)->vect.size();q++)
+    {
+        count1(displayed,(*parent)->vect[q],cb);
+        if(cb[0]==0&&cb[1]==0)
+        {
+           (*parent)->a[0]->vect.push_back ((*parent)->vect[q]);
+
+        }
+        else if(cb[0]==0&&cb[1]==1)
+        {
+             //push_back (*parent)->a[1]->vect((*parent)->vect(q))
+             (*parent)->a[1]->vect.push_back ((*parent)->vect[q]);
+
+
+        }
+
+         else if(cb[0]==0&&cb[1]==2)
+        {
+             //push_back (*parent)->a[2]->vect((*parent)->vect(q))
+             (*parent)->a[2]->vect.push_back ((*parent)->vect[q]);
+
+
+        }
+
+         else if(cb[0]==0&&cb[1]==3)
+        {
+             //push_back (*parent)->a[3]->vect((*parent)->vect(q))
+             (*parent)->a[3]->vect.push_back ((*parent)->vect[q]);
+
+
+        }
+
+         else if(cb[0]==1&&cb[1]==0)
+        {
+             //push_back (*parent)->a[4]->vect((*parent)->vect(q))
+             (*parent)->a[4]->vect.push_back ((*parent)->vect[q]);
+
+
+        }
+
+         else if(cb[0]==1&&cb[1]==1)
+        {
+             //push_back (*parent)->a[5]->vect((*parent)->vect(q))
+             (*parent)->a[5]->vect.push_back ((*parent)->vect[q]);
+
+
+
+        }
+
+          else if(cb[0]==1&&cb[1]==2)
+        {
+             //push_back (*parent)->a[6]->vect((*parent)->vect(q))
+             (*parent)->a[6]->vect.push_back ((*parent)->vect[q]);
+
+
+        }
+
+
+         else if(cb[0]==2&&cb[1]==0)
+        {
+             //push_back (*parent)->a[7]->vect((*parent)->vect(q))
+             (*parent)->a[7]->vect.push_back ((*parent)->vect[q]);
+
+
+        }
+
+
+         else if(cb[0]==2&&cb[1]==1)
+        {
+             //push_back (*parent)->a[8]->vect((*parent)->vect(q))
+             (*parent)->a[8]->vect.push_back ((*parent)->vect[q]);
+
+
+        }
+
+         else if(cb[0]==2&&cb[1]==2)
+        {
+             //push_back (*parent)->a[9]->vect((*parent)->vect(q))
+             (*parent)->a[9]->vect.push_back ((*parent)->vect[q]);
+
+
+        }
+
+         else if(cb[0]==3&&cb[1]==0)
+        {
+             //push_back (*parent)->a[10]->vect((*parent)->vect(q))-
+             (*parent)->a[10]->vect.push_back ((*parent)->vect[q]);
+
+
+        }
+
+         else if(cb[0]==3&&cb[1]==1)
+        {
+             //push_back (*parent)->a[11]->vect((*parent)->vect(q))
+             (*parent)->a[11]->vect.push_back ((*parent)->vect[q]);
+
+
+        }
+
+         else if(cb[0]==4&&cb[1]==0)
+        {
+             //push_back (*parent)->a[12]->vect((*parent)->vect(q))
+             (*parent)->a[12]->vect.push_back ((*parent)->vect[q]);
+
+
+        }
+         else if(cb[0]==0&&cb[1]==4)
+        {
+             //push_back (*parent)->a[13]->vect((*parent)->vect(q))
+             (*parent)->a[13]->vect.push_back ((*parent)->vect[q]);
+
+
+        }
+
+
+
+    }
+
+}
+
+
+
+void count1(int givennum,int checknum,int cb[])
+{
+    int given[4],check[4],cows=0,bulls=0;
+    cows=0;
+    bulls=0;
+    cb[1]=0;
+    cb[0]=0;
+    for(int l=0;l<=3;l++)
+    {
+        given[l]=givennum%10;
+        check[l]=checknum%10;
+        givennum=givennum/10;
+        checknum=checknum/10;
+    }
+
+    for(int j=0;j<=3;j++)
+    {
+        for(int k=0;k<=3;k++)
+        {
+
+            if(given[j]==check[k])
+            {
+                if(j==k)
+                {
+                    bulls++;
+                }
+                else
+                {
+                    cows++;
+                }
+            }
+        }
+    }
+
+    cb[0]=cows;
+    cb[1]=bulls;
+}
+
+int main()
+{
+    int check,inbulls,incows;
+    traverse1();
+    traverse1();
+    cout<<"bulls are the correct numbers which are the right place\n";
+    cout<<"cows are the correct numbers in the wrong place\n";
+    cout<<"if a number is a bull , it isn't a cow\n";
+    cout<<"if a number is a bull , it isn't a cow\n";
+
+     current=head;
+     while(current->vect.size()!=1)
+     {
+         centre=(current->vect.size())/2;
+
+         cout<<"my guess is\t"<<current->vect[centre]<<"\n";
+         cout<<"Enter the number of bulls: ";
+         cin>>inbulls;
+         cout<<"Enter the number of cows: ";
+         cin>>incows;
+         if(incows==0&&inbulls==0)
+         {
+             current=current->a[0];
+         }
+
+          if(incows==0&&inbulls==1)
+         {
+             current=current->a[1];
+         }
+
+          if(incows==0&&inbulls==2)
+         {
+             current=current->a[2];
+         }
+
+          if(incows==0&&inbulls==3)
+         {
+             current=current->a[3];
+         }
+
+          if(incows==1&&inbulls==0)
+         {
+             current=current->a[4];
+         }
+
+
+          if(incows==1&&inbulls==1)
+         {
+             current=current->a[5];
+         }
+
+          if(incows==1&&inbulls==2)
+         {
+             current=current->a[6];
+         }
+
+          if(incows==2&&inbulls==0)
+         {
+             current=current->a[7];
+         }
+
+          if(incows==2&&inbulls==1)
+         {
+             current=current->a[8];
+         }
+
+          if(incows==2&&inbulls==2)
+         {
+             current=current->a[9];
+         }
+
+          if(incows==3&&inbulls==0)
+         {
+             current=current->a[10];
+         }
+
+          if(incows==3&&inbulls==1)
+         {
+             current=current->a[11];
+         }
+
+
+          if(incows==4&&inbulls==0)
+         {
+             current=current->a[12];
+         }
+
+          if(incows==0&&inbulls==4)
+         {
+             current=current->a[13];
+         }
+
+
+     }
+
+     cout<<"your number is\t"<<current->vect[0];
+
+
+    return 0;
+}
